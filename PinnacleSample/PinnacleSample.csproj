@@ -41,16 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreatePartInvoiceResult.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="CustomerRepositoryDB.cs" />
-    <Compile Include="PartAvailabilityService.cs" />
-    <Compile Include="PartInvoice.cs" />
-    <Compile Include="PartInvoiceController.cs" />
-    <Compile Include="PartInvoiceRepositoryDB.cs" />
+    <Compile Include="ViewModels\CreatePartInvoiceResult.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="DAL\CustomerRepositoryDB.cs" />
+    <Compile Include="Services\PartAvailabilityService.cs" />
+    <Compile Include="Models\PartInvoice.cs" />
+    <Compile Include="Controllers\PartInvoiceController.cs" />
+    <Compile Include="DAL\PartInvoiceRepositoryDB.cs" />
     <Compile Include="PinnacleClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
