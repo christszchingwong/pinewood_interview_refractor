@@ -16,3 +16,6 @@ Workflow for "Create Part Invoice"
 -> (dependent repository/services) `CustomerRepositoryDB` / `PartAvailabilityServiceClient` / `PartInvoiceRepositoryDB`  
 -> (result)
 `CreatePartInvoiceResult`
+
+From this architecutre pattern (MVC),
+it suffices to perform unit tests on `PartInvoiceController`  
