@@ -2,6 +2,22 @@
 {
     public class PartInvoiceController
     {
+        ICustomerRepository _CustomerRepository;
+        IPartInvoiceRepository _PartInvoiceRepository;
+
+        // Dependency Injection only at construction time - avoid strange behavior for subsequent codes
+        public PartInvoiceController()
+        {
+            this._CustomerRepository = new CustomerRepositoryDB();
+            this._PartInvoiceRepository = new PartInvoiceRepositoryDB();
+        }
+
+        public PartInvoiceController(ICustomerRepository CustomerRepository, IPartInvoiceRepository PartInvoiceRepository)
+        {
+            this._CustomerRepository = CustomerRepository;
+            this._PartInvoiceRepository = PartInvoiceRepository;
+        }
+
         public CreatePartInvoiceResult CreatePartInvoice(string stockCode, int quantity, string customerName)
         {
             if (string.IsNullOrEmpty(stockCode))
@@ -14,7 +30,6 @@
                 return new CreatePartInvoiceResult(false);
             }
 
-            CustomerRepositoryDB _CustomerRepository = new CustomerRepositoryDB();
             Customer _Customer = _CustomerRepository.GetByName(customerName);
             if (_Customer.ID <= 0)
             {
@@ -36,9 +51,7 @@
                 Quantity = quantity,
                 CustomerID = _Customer.ID
             };
-
-
-            PartInvoiceRepositoryDB _PartInvoiceRepository = new PartInvoiceRepositoryDB();
+            
             _PartInvoiceRepository.Add(_PartInvoice);
 
             return new CreatePartInvoiceResult(true);

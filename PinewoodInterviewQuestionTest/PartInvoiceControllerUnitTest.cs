@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PinnacleSample;
+using Moq;
 
 namespace PinewoodInterviewQuestionTest
 {
@@ -12,7 +13,27 @@ namespace PinewoodInterviewQuestionTest
         [TestInitialize]
         public void TestInitialize()
         {
-            this.PartInvoiceController = new PartInvoiceController();
+            var mockCustomerRepository = SetupCustomerRepositoryMock();
+            var mockPartInvoiceRepository = SetupPartInvoiceRepositoryMock();
+            this.PartInvoiceController = new PartInvoiceController(mockCustomerRepository, mockPartInvoiceRepository);
+        }
+
+        private ICustomerRepository SetupCustomerRepositoryMock()
+        {
+            var mockCustomerRepository = new Mock<ICustomerRepository>();
+            mockCustomerRepository.Setup(r => r.GetByName("Alice")).Returns(new Customer()
+            {
+                ID = 1,
+                Address = "Hello Wrold",
+                Name = "Alice"
+            });
+            return mockCustomerRepository.Object;
+        }
+        private IPartInvoiceRepository SetupPartInvoiceRepositoryMock()
+        {
+            var mockPartInvoiceRepository = new Mock<IPartInvoiceRepository>();
+            mockPartInvoiceRepository.Setup(r => r.Add(It.IsAny<PartInvoice>()));
+            return mockPartInvoiceRepository.Object;
         }
 
         [TestCleanup]

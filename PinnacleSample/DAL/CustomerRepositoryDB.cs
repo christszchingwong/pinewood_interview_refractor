@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace PinnacleSample
 {
-    public class CustomerRepositoryDB
+    public class CustomerRepositoryDB : ICustomerRepository
     {
         public Customer GetByName(string name)
         {
