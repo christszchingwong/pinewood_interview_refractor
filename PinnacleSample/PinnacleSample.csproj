@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Repositories\ICustomerRepository.cs" />
     <Compile Include="Repositories\IPartInvoiceRepository.cs" />
+    <Compile Include="Services\PartAvailabilityServiceClientFactory.cs" />
     <Compile Include="ViewModels\CreatePartInvoiceResult.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="DAL\CustomerRepositoryDB.cs" />

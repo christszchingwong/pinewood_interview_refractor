@@ -15,7 +15,8 @@ namespace PinewoodInterviewQuestionTest
         {
             var mockCustomerRepository = SetupCustomerRepositoryMock();
             var mockPartInvoiceRepository = SetupPartInvoiceRepositoryMock();
-            this.PartInvoiceController = new PartInvoiceController(mockCustomerRepository, mockPartInvoiceRepository);
+            var mockPartAvailablityServiceClientFactory = SetupPartAvailabilityServiceClientFactory();
+            this.PartInvoiceController = new PartInvoiceController(mockCustomerRepository, mockPartInvoiceRepository,mockPartAvailablityServiceClientFactory);
         }
 
         private ICustomerRepository SetupCustomerRepositoryMock()
@@ -34,6 +35,15 @@ namespace PinewoodInterviewQuestionTest
             var mockPartInvoiceRepository = new Mock<IPartInvoiceRepository>();
             mockPartInvoiceRepository.Setup(r => r.Add(It.IsAny<PartInvoice>()));
             return mockPartInvoiceRepository.Object;
+        }
+
+        private PartAvailabilityServiceClientFactory SetupPartAvailabilityServiceClientFactory()
+        {
+            var mockIPartAvailabilityService = new Mock<IPartAvailabilityServiceClient>();
+            mockIPartAvailabilityService.Setup(c => c.GetAvailability(It.IsAny<string>())).Returns(10);
+            var mockPartAvailabilityServiceClientFactory = new Mock<PartAvailabilityServiceClientFactory>();
+            mockPartAvailabilityServiceClientFactory.Setup(f => f.GetClient()).Returns(mockIPartAvailabilityService.Object);
+            return mockPartAvailabilityServiceClientFactory.Object;
         }
 
         [TestCleanup]
